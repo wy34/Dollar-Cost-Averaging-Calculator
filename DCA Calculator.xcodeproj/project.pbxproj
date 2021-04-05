@@ -9,21 +9,29 @@
 /* Begin PBXBuildFile section */
 		4CEE3857261BBBFF0089AACA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE3856261BBBFF0089AACA /* AppDelegate.swift */; };
 		4CEE3859261BBBFF0089AACA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE3858261BBBFF0089AACA /* SceneDelegate.swift */; };
-		4CEE385B261BBBFF0089AACA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE385A261BBBFF0089AACA /* ViewController.swift */; };
+		4CEE385B261BBBFF0089AACA /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE385A261BBBFF0089AACA /* SearchVC.swift */; };
 		4CEE385E261BBBFF0089AACA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CEE385C261BBBFF0089AACA /* Main.storyboard */; };
 		4CEE3860261BBC000089AACA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CEE385F261BBC000089AACA /* Assets.xcassets */; };
 		4CEE3863261BBC000089AACA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CEE3861261BBC000089AACA /* LaunchScreen.storyboard */; };
+		4CEE386F261BBD130089AACA /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE386E261BBD130089AACA /* UIView.swift */; };
+		4CEE3876261BD2FD0089AACA /* CompanySearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE3875261BD2FD0089AACA /* CompanySearchCell.swift */; };
+		4CEE387B261BD3380089AACA /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE387A261BD3380089AACA /* Label.swift */; };
+		4CEE387F261BD3C60089AACA /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE387E261BD3C60089AACA /* StackView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4CEE3853261BBBFF0089AACA /* DCA Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DCA Calculator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CEE3856261BBBFF0089AACA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CEE3858261BBBFF0089AACA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4CEE385A261BBBFF0089AACA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4CEE385A261BBBFF0089AACA /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		4CEE385D261BBBFF0089AACA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4CEE385F261BBC000089AACA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4CEE3862261BBC000089AACA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4CEE3864261BBC000089AACA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4CEE386E261BBD130089AACA /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		4CEE3875261BD2FD0089AACA /* CompanySearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanySearchCell.swift; sourceTree = "<group>"; };
+		4CEE387A261BD3380089AACA /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
+		4CEE387E261BD3C60089AACA /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,13 +66,49 @@
 			children = (
 				4CEE3856261BBBFF0089AACA /* AppDelegate.swift */,
 				4CEE3858261BBBFF0089AACA /* SceneDelegate.swift */,
-				4CEE385A261BBBFF0089AACA /* ViewController.swift */,
+				4CEE3871261BBD310089AACA /* Extensions */,
+				4CEE3874261BD2E30089AACA /* Views */,
+				4CEE386C261BBCBD0089AACA /* Controllers */,
 				4CEE385C261BBBFF0089AACA /* Main.storyboard */,
 				4CEE385F261BBC000089AACA /* Assets.xcassets */,
 				4CEE3861261BBC000089AACA /* LaunchScreen.storyboard */,
 				4CEE3864261BBC000089AACA /* Info.plist */,
 			);
 			path = "DCA Calculator";
+			sourceTree = "<group>";
+		};
+		4CEE386C261BBCBD0089AACA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4CEE385A261BBBFF0089AACA /* SearchVC.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		4CEE3871261BBD310089AACA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4CEE386E261BBD130089AACA /* UIView.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4CEE3874261BD2E30089AACA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4CEE3881261BD3CD0089AACA /* Generic */,
+				4CEE3875261BD2FD0089AACA /* CompanySearchCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4CEE3881261BD3CD0089AACA /* Generic */ = {
+			isa = PBXGroup;
+			children = (
+				4CEE387A261BD3380089AACA /* Label.swift */,
+				4CEE387E261BD3C60089AACA /* StackView.swift */,
+			);
+			path = Generic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +181,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CEE385B261BBBFF0089AACA /* ViewController.swift in Sources */,
+				4CEE3876261BD2FD0089AACA /* CompanySearchCell.swift in Sources */,
+				4CEE387F261BD3C60089AACA /* StackView.swift in Sources */,
+				4CEE386F261BBD130089AACA /* UIView.swift in Sources */,
+				4CEE387B261BD3380089AACA /* Label.swift in Sources */,
+				4CEE385B261BBBFF0089AACA /* SearchVC.swift in Sources */,
 				4CEE3857261BBBFF0089AACA /* AppDelegate.swift in Sources */,
 				4CEE3859261BBBFF0089AACA /* SceneDelegate.swift in Sources */,
 			);
