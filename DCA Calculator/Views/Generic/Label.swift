@@ -17,12 +17,12 @@ class Label: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(text: String, textColor: UIColor = .black, font: UIFont, alignment: NSTextAlignment = .left) {
+    init(text: String, textColor: UIColor = .black, font: UIFont, alignment: NSTextAlignment = .left, numberOfLines: Int = 2) {
         super.init(frame: .zero)
         self.text = text
         self.textColor = textColor
         self.font = font
         self.textAlignment = alignment
-        self.numberOfLines = 2
+        self.numberOfLines = numberOfLines
     }
 }

@@ -19,6 +19,8 @@
 		4CEE387F261BD3C60089AACA /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE387E261BD3C60089AACA /* StackView.swift */; };
 		4CEE3886261BD8060089AACA /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE3885261BD8060089AACA /* APIService.swift */; };
 		4CEE388B261C05640089AACA /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE388A261C05640089AACA /* SearchResult.swift */; };
+		4CEE3890261C1B320089AACA /* SearchPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE388F261C1B320089AACA /* SearchPlaceholderView.swift */; };
+		4CEE3893261C1B6A0089AACA /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE3892261C1B6A0089AACA /* ImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		4CEE387E261BD3C60089AACA /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
 		4CEE3885261BD8060089AACA /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		4CEE388A261C05640089AACA /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		4CEE388F261C1B320089AACA /* SearchPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceholderView.swift; sourceTree = "<group>"; };
+		4CEE3892261C1B6A0089AACA /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +108,7 @@
 			children = (
 				4CEE3881261BD3CD0089AACA /* Generic */,
 				4CEE3875261BD2FD0089AACA /* CompanySearchCell.swift */,
+				4CEE388F261C1B320089AACA /* SearchPlaceholderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -113,6 +118,7 @@
 			children = (
 				4CEE387A261BD3380089AACA /* Label.swift */,
 				4CEE387E261BD3C60089AACA /* StackView.swift */,
+				4CEE3892261C1B6A0089AACA /* ImageView.swift */,
 			);
 			path = Generic;
 			sourceTree = "<group>";
@@ -207,8 +213,10 @@
 				4CEE388B261C05640089AACA /* SearchResult.swift in Sources */,
 				4CEE387F261BD3C60089AACA /* StackView.swift in Sources */,
 				4CEE386F261BBD130089AACA /* UIView.swift in Sources */,
+				4CEE3893261C1B6A0089AACA /* ImageView.swift in Sources */,
 				4CEE387B261BD3380089AACA /* Label.swift in Sources */,
 				4CEE385B261BBBFF0089AACA /* SearchVC.swift in Sources */,
+				4CEE3890261C1B320089AACA /* SearchPlaceholderView.swift in Sources */,
 				4CEE3857261BBBFF0089AACA /* AppDelegate.swift in Sources */,
 				4CEE3886261BD8060089AACA /* APIService.swift in Sources */,
 				4CEE3859261BBBFF0089AACA /* SceneDelegate.swift in Sources */,

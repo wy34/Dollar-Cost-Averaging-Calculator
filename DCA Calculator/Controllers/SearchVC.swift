@@ -11,17 +11,18 @@ import Combine
 class SearchVC: UIViewController {
     // MARK: - Properties
     private let apiService = APIService()
+    private var companies = [Company]()
     private var subscribers = Set<AnyCancellable>()
     @Published private var searchQuery = String()
-    
-    private var companies = [Company]()
-    
+    @Published private var isSearching = false
+
     // MARK: - Views
     private lazy var tableView: UITableView = {
         let tv = UITableView()
         tv.register(CompanySearchCell.self, forCellReuseIdentifier: CompanySearchCell.reuseId)
         tv.delegate = self
         tv.dataSource = self
+        tv.tableFooterView = UIView()
         return tv
     }()
     
@@ -39,7 +40,7 @@ class SearchVC: UIViewController {
         super.viewDidLoad()
         layoutUI()
         configureNavBar()
-        setupSearchSubscriber()
+        setupSubscribers()
     }
 
     // MARK: - Helpers
@@ -51,7 +52,7 @@ class SearchVC: UIViewController {
     func configureNavBar() {
         navigationItem.searchController = searchController
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Symbols"
+        navigationItem.title = "Search"
     }
     
     private func performSearch(searchTerm: String) {
@@ -71,13 +72,29 @@ class SearchVC: UIViewController {
             .store(in: &subscribers)
     }
     
-    private func setupSearchSubscriber() {
+    private func setupSubscribers() {
         $searchQuery
             .debounce(for: .milliseconds(750), scheduler: RunLoop.main)
             .sink { [weak self] (searchQuery) in
                 guard let self = self else { return }
                 self.performSearch(searchTerm: searchQuery)
             }
+            .store(in: &subscribers)
+        
+        $isSearching
+            .sink(receiveValue: { [weak self] (isSearching) in
+                guard let self = self else { return }
+                let v = SearchPlaceholderView()
+                
+                if isSearching {
+                    v.isHidden = true
+                } else {
+                    self.tableView.addSubview(v)
+                    v.center(to: self.tableView, by: .centerX)
+                    v.center(to: self.tableView, by: .centerY, withMultiplierOf: 0.5)
+                    v.setDimension(width: self.tableView.widthAnchor, height: self.tableView.heightAnchor, hMult: 0.3)
+                }
+            })
             .store(in: &subscribers)
     }
 }
@@ -93,16 +110,27 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
         cell.configure(with: companies[indexPath.row])
         return cell
     }
+    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        return SearchPlaceholderView()
+//    }
+//
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 400
+//    }
 }
 
 // MARK: - UISearchResultsUpdater
-extension SearchVC: UISearchResultsUpdating {
+extension SearchVC: UISearchResultsUpdating, UISearchControllerDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         guard !searchController.searchBar.text!.isEmpty else {
-            self.companies.removeAll()
-            self.tableView.reloadData()
+            companies.removeAll()
+            tableView.reloadData()
+            isSearching = false
             return
         }
+        
+        isSearching = true
         self.searchQuery = searchController.searchBar.text!
     }
 }

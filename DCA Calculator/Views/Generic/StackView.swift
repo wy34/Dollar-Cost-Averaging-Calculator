@@ -17,7 +17,7 @@ class StackView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(views: [UIView], spacing: CGFloat, axis: NSLayoutConstraint.Axis = .horizontal, alignment: UIStackView.Alignment = .center, distribution: UIStackView.Distribution = .fill) {
+    init(views: [UIView], spacing: CGFloat = 0, axis: NSLayoutConstraint.Axis = .horizontal, alignment: UIStackView.Alignment = .center, distribution: UIStackView.Distribution = .fill) {
         super.init(frame: .zero)
         self.spacing = spacing
         self.axis = axis
