@@ -16,7 +16,7 @@ class CompanySearchCell: UITableViewCell {
     let currencyLabel = Label(text: "USD", textColor: .lightGray, font: .systemFont(ofSize: 15))
     lazy var leftStack = StackView(views: [symbolLabel, currencyLabel], spacing: 3, axis: .vertical, alignment: .leading)
     
-    let nameLabel = Label(text: "The Boeing Company", font: .systemFont(ofSize: 16))
+    let nameLabel = Label(text: "The Boeing Company", font: .systemFont(ofSize: 16), alignment: .right)
     lazy var overallStack = StackView(views: [leftStack, nameLabel], spacing: 3)
 
     // MARK: - Lifecycle
@@ -33,5 +33,12 @@ class CompanySearchCell: UITableViewCell {
     func layoutUI() {
         addSubview(overallStack)
         overallStack.anchor(top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor, leading: leadingAnchor, paddingTop: 16, paddingTrailing: 16, paddingBottom: 16, paddingLeading: 16)
+        nameLabel.setDimension(width: widthAnchor, wMult: 0.5)
+    }
+    
+    func configure(with company: Company) {
+        nameLabel.text = company.name
+        symbolLabel.text = company.symbol
+        currencyLabel.text = company.type?.appending(" \(company.currency ?? "")")
     }
 }

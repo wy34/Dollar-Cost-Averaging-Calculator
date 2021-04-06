@@ -38,14 +38,20 @@ class SearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutUI()
-        observeFrom()
+        configureNavBar()
+        setupSearchSubscriber()
     }
 
     // MARK: - Helpers
     private func layoutUI() {
         view.addSubview(tableView)
         tableView.anchor(top: view.topAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor)
+    }
+    
+    func configureNavBar() {
         navigationItem.searchController = searchController
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = "Symbols"
     }
     
     private func performSearch(searchTerm: String) {
@@ -60,16 +66,17 @@ class SearchVC: UIViewController {
                 } receiveValue: { [weak self] (searchResults) in
                     guard let self = self else { return }
                     self.companies = searchResults.items
-                    DispatchQueue.main.async { self.tableView.reloadData() }
+                    self.tableView.reloadData()
                 }
             .store(in: &subscribers)
     }
     
-    private func observeFrom() {
+    private func setupSearchSubscriber() {
         $searchQuery
             .debounce(for: .milliseconds(750), scheduler: RunLoop.main)
-            .sink { (searchQuery) in
-                print(searchQuery)
+            .sink { [weak self] (searchQuery) in
+                guard let self = self else { return }
+                self.performSearch(searchTerm: searchQuery)
             }
             .store(in: &subscribers)
     }
@@ -83,6 +90,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CompanySearchCell.reuseId, for: indexPath) as! CompanySearchCell
+        cell.configure(with: companies[indexPath.row])
         return cell
     }
 }
@@ -90,9 +98,11 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
 // MARK: - UISearchResultsUpdater
 extension SearchVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let searchQuery = searchController.searchBar.text, !searchQuery.isEmpty else {
+        guard !searchController.searchBar.text!.isEmpty else {
+            self.companies.removeAll()
+            self.tableView.reloadData()
             return
         }
-        self.searchQuery = searchQuery
+        self.searchQuery = searchController.searchBar.text!
     }
 }
