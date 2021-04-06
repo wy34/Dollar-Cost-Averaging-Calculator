@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C36ED06261CFB8000D2AD18 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C36ED05261CFB8000D2AD18 /* LoadingViewController.swift */; };
 		4CEE3857261BBBFF0089AACA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE3856261BBBFF0089AACA /* AppDelegate.swift */; };
 		4CEE3859261BBBFF0089AACA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE3858261BBBFF0089AACA /* SceneDelegate.swift */; };
 		4CEE385B261BBBFF0089AACA /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE385A261BBBFF0089AACA /* SearchVC.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C36ED05261CFB8000D2AD18 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		4CEE3853261BBBFF0089AACA /* DCA Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DCA Calculator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CEE3856261BBBFF0089AACA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CEE3858261BBBFF0089AACA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				4CEE3881261BD3CD0089AACA /* Generic */,
 				4CEE3875261BD2FD0089AACA /* CompanySearchCell.swift */,
 				4CEE388F261C1B320089AACA /* SearchPlaceholderView.swift */,
+				4C36ED05261CFB8000D2AD18 /* LoadingViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 				4CEE3857261BBBFF0089AACA /* AppDelegate.swift in Sources */,
 				4CEE3886261BD8060089AACA /* APIService.swift in Sources */,
 				4CEE3859261BBBFF0089AACA /* SceneDelegate.swift in Sources */,
+				4C36ED06261CFB8000D2AD18 /* LoadingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
