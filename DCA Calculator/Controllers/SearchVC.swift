@@ -6,9 +6,15 @@
 //
 
 import UIKit
+import Combine
 
 class SearchVC: UIViewController {
     // MARK: - Properties
+    private let apiService = APIService()
+    private var subscribers = Set<AnyCancellable>()
+    @Published private var searchQuery = String()
+    
+    private var companies = [Company]()
     
     // MARK: - Views
     private lazy var tableView: UITableView = {
@@ -32,20 +38,47 @@ class SearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutUI()
+        observeFrom()
     }
 
     // MARK: - Helpers
-    func layoutUI() {
+    private func layoutUI() {
         view.addSubview(tableView)
         tableView.anchor(top: view.topAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor)
         navigationItem.searchController = searchController
+    }
+    
+    private func performSearch(searchTerm: String) {
+        apiService.fetchSymbolsPublisher(keywords: searchTerm)
+            .sink { (completion) in
+                switch completion {
+                    case .finished:
+                        break
+                    case .failure(let error):
+                        print(error)
+                }
+                } receiveValue: { [weak self] (searchResults) in
+                    guard let self = self else { return }
+                    self.companies = searchResults.items
+                    DispatchQueue.main.async { self.tableView.reloadData() }
+                }
+            .store(in: &subscribers)
+    }
+    
+    private func observeFrom() {
+        $searchQuery
+            .debounce(for: .milliseconds(750), scheduler: RunLoop.main)
+            .sink { (searchQuery) in
+                print(searchQuery)
+            }
+            .store(in: &subscribers)
     }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDatasource
 extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return companies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -57,6 +90,9 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
 // MARK: - UISearchResultsUpdater
 extension SearchVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        print(searchController.searchBar.text)
+        guard let searchQuery = searchController.searchBar.text, !searchQuery.isEmpty else {
+            return
+        }
+        self.searchQuery = searchQuery
     }
 }
