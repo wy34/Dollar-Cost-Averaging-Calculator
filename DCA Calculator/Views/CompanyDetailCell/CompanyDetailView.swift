@@ -34,7 +34,7 @@ struct CompanyDetailView: View {
                 Text("Investment amount")
                     .font(.system(size: 14, weight: .regular, design: .rounded))
                 Spacer()
-                Text("(\(asset?.company.currency ?? "")) 100")
+                Text("\(asset?.company.currency ?? "") 100")
                     .font(.system(size: 14, weight: .bold, design: .rounded))
             }
             HStack {
@@ -63,17 +63,5 @@ struct CompanyDetailView: View {
 struct CompanyDetailView_Previews: PreviewProvider {
     static var previews: some View {
         CompanyDetailView()
-    }
-}
-
-struct TextFieldCaptionLabel: View {
-    var currency: String?
-    
-    var body: some View {
-        HStack {
-            Text("Initial investment amount (\(currency ?? ""))")
-                .font(.system(size: 14, weight: .regular, design: .rounded))
-                .foregroundColor(Color(.darkGray))
-        }
     }
 }

@@ -51,7 +51,6 @@ class CalculatorVC: UIViewController {
     
     func configureNavBar() {
         navigationItem.largeTitleDisplayMode = .never
-        navigationItem.title = "Search"
     }
     
     // MARK: - Selectors
@@ -79,6 +78,11 @@ extension CalculatorVC: UITableViewDelegate, UITableViewDataSource {
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: CalculatorCell.reuseId, for: indexPath) as! CalculatorCell
                 cell.configureWith(asset: asset)
+                cell.showDateVC = { [weak self] in
+                    guard let self = self else { return }
+                    let vc = DateVC(monthlyTimeSeriesAdjusted: self.asset?.timeSeriesMonthlyAdjusted)
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
                 return cell
         }
     }

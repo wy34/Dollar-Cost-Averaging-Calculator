@@ -12,18 +12,20 @@ class CalculatorCell: UITableViewCell {
     // MARK: - Properties
     static let reuseId = "CalculatorCell"
     
+    var showDateVC: (() -> Void)?
+    
     // MARK: - Views
     private let initalAmtTextField = TextField(placeholder: "Enter your inital investment amount")
-    private let initialAmtLabel = UIHostingController(rootView: TextFieldCaptionLabel(currency: "USD"))
+    private let initialAmtLabel = UIHostingController(rootView: TextFieldCaptionLabel(caption: "Initial investment amount", currency: ""))
     private lazy var amtStack = StackView(views: [initalAmtTextField, initialAmtLabel.view], axis: .vertical, alignment: .leading)
     
     private let monthlyDollarTextField = TextField(placeholder: "Monthly dollar cost averaging amount")
-    private let monthlyDollarLabel = UIHostingController(rootView: TextFieldCaptionLabel(currency: "USD"))
+    private let monthlyDollarLabel = UIHostingController(rootView: TextFieldCaptionLabel(caption: "Monthly dollar cost averaging amount", currency: ""))
     private lazy var monthlyStack = StackView(views: [monthlyDollarTextField, monthlyDollarLabel.view], axis: .vertical, alignment: .leading)
 
-    private let initalDateTextField = TextField(placeholder: "Enter your inital date of investment")
-    private let initialDateLabel = UIHostingController(rootView: TextFieldCaptionLabel(currency: "USD"))
-    private lazy var dateStack = StackView(views: [initalDateTextField, initialDateLabel.view], axis: .vertical, alignment: .leading)
+    private let initalDateButton = Button(title:  "Set your inital date of investment", bgColor: .clear, font: .boldSystemFont(ofSize: 18))
+    private let initialDateLabel = UIHostingController(rootView: TextFieldCaptionLabel(caption: "Initial date of investment", currency: ""))
+    private lazy var dateStack = StackView(views: [initalDateButton, initialDateLabel.view], spacing: -3, axis: .vertical,alignment: .leading)
     
     private let slider = Slider(minVal: 0, maxVal: 1)
     
@@ -43,13 +45,19 @@ class CalculatorCell: UITableViewCell {
     func layoutUI() {
         contentView.addSubview(overallStack)
         overallStack.anchor(top: contentView.topAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, leading: contentView.leadingAnchor, paddingTop: 0, paddingTrailing: 16, paddingBottom: 16, paddingLeading: 16)
+        
+        initalDateButton.addTarget(self, action: #selector(handleDateButtonTapped), for: .touchUpInside)
     }
     
     func configureWith(asset: Asset?) {
         guard let asset = asset else { return }
-        initialAmtLabel.rootView.currency = asset.company.currency
-        monthlyDollarLabel.rootView.currency = asset.company.currency
-        initialDateLabel.rootView.currency = asset.company.currency
+        initialAmtLabel.rootView.currency = "(\(asset.company.currency ?? ""))"
+        monthlyDollarLabel.rootView.currency = "(\(asset.company.currency ?? ""))"
+    }
+    
+    // MARK: - Selector
+    @objc func handleDateButtonTapped() {
+        showDateVC?()
     }
 }
 

@@ -82,6 +82,7 @@ class SearchVC: LoadingViewController {
     }
     
     private func fetchTimeSeries(symbol: String, company: Company) {
+        showLoader()
         apiService.fetchTimeSeries(symbol: symbol)
             .sink { (completion) in
                 switch completion {
@@ -92,6 +93,7 @@ class SearchVC: LoadingViewController {
                 }
             } receiveValue: { [weak self] (timeSeriesMonthlyAdjusted) in
                 guard let self = self else { return }
+                self.dismissLoader()
                 let asset = Asset(company: company, timeSeriesMonthlyAdjusted: timeSeriesMonthlyAdjusted)
                 let vc = CalculatorVC(asset: asset)
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -138,6 +140,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let company = companies[indexPath.row]
         fetchTimeSeries(symbol: company.symbol, company: company)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -157,3 +160,4 @@ extension SearchVC: UISearchResultsUpdating, UISearchControllerDelegate {
         searchQuery = searchController.searchBar.text!
     }
 }
+
