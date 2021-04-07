@@ -63,8 +63,8 @@ class SearchVC: LoadingViewController {
         navigationItem.title = "Search"
     }
     
-    private func performSearch(searchTerm: String) {
-        apiService.fetchSymbolsPublisher(keywords: searchTerm)
+    private func performSearch(searchTerm: String)  {
+        apiService.fetchSymbols(searchTerm: searchTerm)
             .sink { (completion) in
                 switch completion {
                     case .finished:
@@ -72,12 +72,12 @@ class SearchVC: LoadingViewController {
                     case .failure(let error):
                         print(error)
                 }
-                } receiveValue: { [weak self] (searchResults) in
-                    guard let self = self else { return }
-                    self.companies = searchResults.items
-                    self.dismissLoader()
-                    self.tableView.reloadData()
-                }
+            } receiveValue: { [weak self] (searchResult) in
+                guard let self = self else { return }
+                self.companies = searchResult.items
+                self.dismissLoader()
+                self.tableView.reloadData()
+            }
             .store(in: &subscribers)
     }
     
