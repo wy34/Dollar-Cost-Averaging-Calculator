@@ -63,7 +63,7 @@ class SearchVC: LoadingViewController {
         navigationItem.title = "Search"
     }
     
-    private func performSearch(searchTerm: String)  {
+    private func fetchSymbols(searchTerm: String)  {
         apiService.fetchSymbols(searchTerm: searchTerm)
             .sink { (completion) in
                 switch completion {
@@ -81,12 +81,30 @@ class SearchVC: LoadingViewController {
             .store(in: &subscribers)
     }
     
+    private func fetchTimeSeries(symbol: String, company: Company) {
+        apiService.fetchTimeSeries(symbol: symbol)
+            .sink { (completion) in
+                switch completion {
+                    case .finished:
+                        break
+                    case .failure(let error):
+                        print(error)
+                }
+            } receiveValue: { [weak self] (timeSeriesMonthlyAdjusted) in
+                guard let self = self else { return }
+                let asset = Asset(company: company, timeSeriesMonthlyAdjusted: timeSeriesMonthlyAdjusted)
+                let vc = CalculatorVC(asset: asset)
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            .store(in: &subscribers)
+    }
+    
     private func setupSubscribers() {
         $searchQuery
             .debounce(for: .milliseconds(750), scheduler: RunLoop.main)
             .sink { [weak self] (searchQuery) in
                 guard let self = self else { return }
-                self.performSearch(searchTerm: searchQuery)
+                self.fetchSymbols(searchTerm: searchQuery)
             }
             .store(in: &subscribers)
         
@@ -118,8 +136,8 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = CalculatorVC()
-        navigationController?.pushViewController(vc, animated: true)
+        let company = companies[indexPath.row]
+        fetchTimeSeries(symbol: company.symbol, company: company)
     }
 }
 

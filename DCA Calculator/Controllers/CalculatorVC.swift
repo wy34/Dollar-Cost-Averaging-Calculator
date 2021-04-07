@@ -21,12 +21,26 @@ class CalculatorVC: UIViewController {
         tv.separatorStyle = .none
         return tv
     }()
-
+    
+    // MARK: - Properties
+    var asset: Asset?
+    
+    // MARK: - Init
+    init(asset: Asset) {
+        super.init(nibName: nil, bundle: nil)
+        self.asset = asset
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutUI()
         configureNavBar()
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     // MARK: - Helpers
@@ -38,6 +52,14 @@ class CalculatorVC: UIViewController {
     func configureNavBar() {
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.title = "Search"
+    }
+    
+    // MARK: - Selectors
+    @objc func handleKeyboardWillShow(notification: Notification) {
+        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardHeight = keyboardFrame.cgRectValue.height
+            self.tableView.contentInset = .init(top: 0, left: 0, bottom: -keyboardHeight - 100, right: 0)
+        }
     }
 }
 
@@ -52,9 +74,11 @@ extension CalculatorVC: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: CompanyDetailCell.reuseId, for: indexPath) as! CompanyDetailCell
+                cell.configureWith(asset: asset)
                 return cell
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: CalculatorCell.reuseId, for: indexPath) as! CalculatorCell
+                cell.configureWith(asset: asset)
                 return cell
         }
     }
