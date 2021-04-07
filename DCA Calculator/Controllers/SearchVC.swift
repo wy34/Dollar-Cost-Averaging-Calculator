@@ -23,6 +23,7 @@ class SearchVC: LoadingViewController {
         tv.delegate = self
         tv.dataSource = self
         tv.tableFooterView = UIView()
+        tv.keyboardDismissMode = .onDrag
         return tv
     }()
     
@@ -114,6 +115,11 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: CompanySearchCell.reuseId, for: indexPath) as! CompanySearchCell
         cell.configure(with: companies[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = CalculatorVC()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

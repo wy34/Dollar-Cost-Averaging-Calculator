@@ -1,5 +1,5 @@
 //
-//  ImageView.swift
+//  Slider.swift
 //  DCA Calculator
 //
 //  Created by William Yeung on 4/6/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ImageView: UIImageView {
+class Slider: UISlider {
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -16,10 +16,10 @@ class ImageView: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(image: UIImage, contentMode: UIImageView.ContentMode) {
+    init(minVal: Float, maxVal: Float) {
         super.init(frame: .zero)
-        self.image = image.withRenderingMode(.alwaysTemplate)
-        self.contentMode = contentMode
-        self.tintColor = .label
+        self.value = 0.5
+        self.minimumValue = minVal
+        self.maximumValue = maxVal
     }
 }

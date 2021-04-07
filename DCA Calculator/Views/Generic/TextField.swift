@@ -1,5 +1,5 @@
 //
-//  ImageView.swift
+//  TextField.swift
 //  DCA Calculator
 //
 //  Created by William Yeung on 4/6/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ImageView: UIImageView {
+class TextField: UITextField {
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -16,10 +16,9 @@ class ImageView: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(image: UIImage, contentMode: UIImageView.ContentMode) {
+    init(placeholder: String) {
         super.init(frame: .zero)
-        self.image = image.withRenderingMode(.alwaysTemplate)
-        self.contentMode = contentMode
-        self.tintColor = .label
+        self.placeholder = placeholder
+        self.font = .boldSystemFont(ofSize: 18)
     }
 }
