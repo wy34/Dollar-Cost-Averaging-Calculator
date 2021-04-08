@@ -13,6 +13,7 @@ class CalculatorCell: UITableViewCell {
     // MARK: - Properties
     static let reuseId = "CalculatorCell"
     
+    var asset: Asset?
     var showDateVC: (() -> Void)?
     var setSliderIndexValue: ((Int) -> Void)?
     
@@ -55,9 +56,9 @@ class CalculatorCell: UITableViewCell {
         Publishers.CombineLatest3($initalInvestmentAmt, $monthlyDollarAmount, $sliderValue)
             .sink { [weak self] (initalInvestmentAmt, monthlyDollarAmount, sliderValue) in
                 guard let self = self else { return }
-                guard let initalInvestmentAmt = initalInvestmentAmt, let monthlyDollarAmount = monthlyDollarAmount, let sliderValue = sliderValue else { return }
+                guard let asset = self.asset, let initalInvestmentAmt = initalInvestmentAmt, let monthlyDollarAmount = monthlyDollarAmount, let sliderValue = sliderValue else { return }
                 
-                let result = self.dcaService.calculate(initialInvestmentAmount: Double(initalInvestmentAmt), monthlyDollarCostAveraginAmount: Double(monthlyDollarAmount), initialDateOfInvestmentIndex: sliderValue)
+                let result = self.dcaService.calculate(asset: asset, initialInvestmentAmount: Double(initalInvestmentAmt), monthlyDollarCostAveraginAmount: Double(monthlyDollarAmount), initialDateOfInvestmentIndex: sliderValue)
                 
                 NotificationCenter.default.post(name: CalculatorCell.calculateNotification, object: nil, userInfo: ["result": result])
             }
@@ -78,6 +79,7 @@ class CalculatorCell: UITableViewCell {
     
     func configureWith(asset: Asset?) {
         guard let asset = asset else { return }
+        self.asset = asset
         initialAmtLabel.rootView.currency = "(\(asset.company.currency ?? ""))"
         monthlyDollarLabel.rootView.currency = "(\(asset.company.currency ?? ""))"
         monthInfos = asset.timeSeriesMonthlyAdjusted.getMonthInfos()

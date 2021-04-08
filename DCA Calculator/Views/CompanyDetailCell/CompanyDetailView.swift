@@ -29,14 +29,14 @@ struct CompanyDetailView: View {
                     Text("(\(asset?.company.currency ?? ""))")
                 }
                     .font(.system(size: 16, weight: .medium, design: .rounded))
-                Text("\(dcaResult?.currentValue.toTwoPlaces() ?? 0.0.toTwoPlaces())")
+                Text("\(dcaResult?.currentValue ?? 0.0, specifier: "%.2f")")
                     .font(.system(size: 20, weight: .bold, design: .rounded))
             }
             HStack {
                 Text("Investment amount")
                     .font(.system(size: 14, weight: .regular, design: .rounded))
                 Spacer()
-                Text("\(asset?.company.currency ?? "") \(dcaResult?.investmentAmount.toTwoPlaces() ?? 0.0.toTwoPlaces())")
+                Text("\(asset?.company.currency ?? "") \(dcaResult?.investmentAmount ?? 0.0, specifier: "%.2f")")
                     .font(.system(size: 14, weight: .bold, design: .rounded))
             }
             HStack {
