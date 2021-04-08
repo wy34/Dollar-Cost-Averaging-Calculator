@@ -22,8 +22,8 @@ class CalculatorCell: UITableViewCell {
     var subscriber = Set<AnyCancellable>()
     
     @Published private var sliderValue: Int?
-    @Published private var initalInvestmentAmt: Int?
-    @Published private var monthlyDollarAmount: Int?
+    @Published private var initalInvestmentAmt: Double?
+    @Published private var monthlyDollarAmount: Double?
     
     let dcaService = DCAService()
     
@@ -83,6 +83,7 @@ class CalculatorCell: UITableViewCell {
         initialAmtLabel.rootView.currency = "(\(asset.company.currency ?? ""))"
         monthlyDollarLabel.rootView.currency = "(\(asset.company.currency ?? ""))"
         monthInfos = asset.timeSeriesMonthlyAdjusted.getMonthInfos()
+        print(monthInfos.count)
         
         slider.addTarget(self, action: #selector(handleSlider(sender:)), for: .valueChanged)
         slider.minimumValue = 0
@@ -91,7 +92,7 @@ class CalculatorCell: UITableViewCell {
     
     func configureDateButton(title: String) {
         initalDateButton.setTitle(title, for: .normal)
-        initalDateButton.setTitleColor(.black, for: .normal)
+        initalDateButton.setTitleColor(.label, for: .normal)
     }
     
     func updateSlider(indexValue: Int) {
@@ -111,7 +112,7 @@ class CalculatorCell: UITableViewCell {
             .compactMap({ ($0.object as? UITextField)?.text })
             .sink { [weak self] (text) in
                 guard let self = self else { return }
-                self.initalInvestmentAmt = Int(text) ?? 0
+                self.initalInvestmentAmt = Double(text) ?? 0.0
             }
             .store(in: &subscriber)
 
@@ -119,7 +120,7 @@ class CalculatorCell: UITableViewCell {
             .compactMap({ ($0.object as? UITextField)?.text })
             .sink { [weak self] (text) in
                 guard let self = self else { return }
-                self.monthlyDollarAmount = Int(text) ?? 0
+                self.monthlyDollarAmount = Double(text) ?? 0.0
             }
             .store(in: &subscriber)
     }
@@ -131,8 +132,9 @@ class CalculatorCell: UITableViewCell {
     
     @objc func handleSlider(sender: UISlider) {
         let value =  Int(sender.value)
+        print(monthInfos.count)
         initalDateButton.setTitle(monthInfos[value].date.convertToString(), for: .normal)
-        initalDateButton.setTitleColor(.black, for: .normal)
+        initalDateButton.setTitleColor(.label, for: .normal)
         self.sliderValue = value
     }
 }

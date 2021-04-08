@@ -33,6 +33,7 @@ struct TimeSeriesMonthlyAjusted: Codable {
             let monthInfo = MonthInfo(date: date, adjustedOpen: adjustedOpen, adjustedClose: Double(ohlc.adjustedClose)!)
             monthInfos.append(monthInfo)
         })
+        print(monthInfos)
         return monthInfos
     }
     

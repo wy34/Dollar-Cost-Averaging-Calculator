@@ -20,7 +20,7 @@ class TextField: UITextField {
         super.init(frame: .zero)
         self.placeholder = placeholder
         self.font = .boldSystemFont(ofSize: 18)
-        self.keyboardType = .numberPad
+        self.keyboardType = .decimalPad
         addDoneToolBar()
     }
     

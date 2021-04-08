@@ -16,5 +16,13 @@ extension Double {
     func toTwoPlaces() -> Double {
         return roundTo(places: 2)
     }
+    
+    func currencyValue() -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.locale = .current
+        numberFormatter.numberStyle = .currency
+        let number = NSNumber(value: self)
+        return numberFormatter.string(from: number) ?? ""
+    }
 }
 

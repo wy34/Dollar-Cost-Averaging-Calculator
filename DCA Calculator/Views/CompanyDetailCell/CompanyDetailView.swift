@@ -29,14 +29,15 @@ struct CompanyDetailView: View {
                     Text("(\(asset?.company.currency ?? ""))")
                 }
                     .font(.system(size: 16, weight: .medium, design: .rounded))
-                Text("\(dcaResult?.currentValue ?? 0.0, specifier: "%.2f")")
+                Text(dcaResult?.currentValue.currencyValue() ?? "$0.00")
+                    .foregroundColor((dcaResult == nil || dcaResult!.currentValue == 0.0) ? Color(.label) : (dcaResult!.isProfitable ? Color(.systemGreen) : Color(.systemRed)))
                     .font(.system(size: 20, weight: .bold, design: .rounded))
             }
             HStack {
                 Text("Investment amount")
                     .font(.system(size: 14, weight: .regular, design: .rounded))
                 Spacer()
-                Text("\(asset?.company.currency ?? "") \(dcaResult?.investmentAmount ?? 0.0, specifier: "%.2f")")
+                Text("\(asset?.company.currency ?? "") \(dcaResult?.investmentAmount.currencyValue() ?? "$0.00")")
                     .font(.system(size: 14, weight: .bold, design: .rounded))
             }
             HStack {
@@ -44,9 +45,9 @@ struct CompanyDetailView: View {
                     .font(.system(size: 14, weight: .regular, design: .rounded))
                 Spacer()
                 Group {
-                    Text("+100.25")
-                    Text("(+10.25%)")
-                        .foregroundColor(.green)
+                    Text("\((dcaResult == nil) ? "" : (dcaResult!.isProfitable ? "+" : ""))\((dcaResult?.gain ?? 0.000), specifier: "%.3f")")
+                    Text("(\((dcaResult == nil) ? "" : (dcaResult!.isProfitable ? "+" : ""))\((dcaResult?.yield ?? 0.00), specifier: "%.2f")%)")
+                        .foregroundColor((dcaResult == nil || dcaResult!.gain == 0) ? Color(.label) : (dcaResult!.isProfitable ? Color(.systemGreen) : Color(.systemRed)))
                 }
                     .font(.system(size: 14, weight: .bold, design: .rounded))
             }
@@ -54,8 +55,8 @@ struct CompanyDetailView: View {
                 Text("Annual return")
                     .font(.system(size: 14, weight: .regular, design: .rounded))
                 Spacer()
-                Text("10.5%")
-                    .foregroundColor(.green)
+                Text("\((dcaResult == nil) ? "" : (dcaResult!.isProfitable ? "+" : ""))\((dcaResult?.annualReturn ?? 0.00), specifier: "%.2f")%")
+                    .foregroundColor((dcaResult == nil || dcaResult!.gain == 0) ? Color(.label) : (dcaResult!.isProfitable ? Color(.systemGreen) : Color(.systemRed)))
                     .font(.system(size: 14, weight: .bold, design: .rounded))
             }
         }
