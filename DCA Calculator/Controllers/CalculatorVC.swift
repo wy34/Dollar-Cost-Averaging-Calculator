@@ -54,6 +54,10 @@ class CalculatorVC: UIViewController {
         navigationItem.largeTitleDisplayMode = .never
     }
     
+    func setSliderIndexValue(sliderIndex: Int) {
+        self.selectedDateIndex = sliderIndex
+    }
+    
     // MARK: - Selectors
     @objc func handleKeyboardWillShow(notification: Notification) {
         if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
@@ -62,7 +66,6 @@ class CalculatorVC: UIViewController {
         }
     }
 }
-
 
 // MARK: - UITableViewDelegate, UITableViewDatasource
 extension CalculatorVC: UITableViewDelegate, UITableViewDataSource {
@@ -79,6 +82,7 @@ extension CalculatorVC: UITableViewDelegate, UITableViewDataSource {
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: CalculatorCell.reuseId, for: indexPath) as! CalculatorCell
                 cell.configureWith(asset: asset)
+                cell.setSliderIndexValue = setSliderIndexValue(sliderIndex:)
                 cell.showDateVC = { [weak self] in
                     guard let self = self else { return }
                     let vc = DateVC(monthlyTimeSeriesAdjusted: self.asset?.timeSeriesMonthlyAdjusted, selectedDateIndex: self.selectedDateIndex)
@@ -86,6 +90,7 @@ extension CalculatorVC: UITableViewDelegate, UITableViewDataSource {
                         self.selectedDateIndex = row
                         let monthInfo = self.asset?.timeSeriesMonthlyAdjusted.getMonthInfos()[row]
                         cell.configureDateButton(title: monthInfo?.date.convertToString() ?? "")
+                        cell.updateSlider(indexValue: row)
                     }
                     self.navigationController?.pushViewController(vc, animated: true)
                 }

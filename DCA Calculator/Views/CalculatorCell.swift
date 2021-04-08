@@ -13,6 +13,9 @@ class CalculatorCell: UITableViewCell {
     static let reuseId = "CalculatorCell"
     
     var showDateVC: (() -> Void)?
+    var setSliderIndexValue: ((Int) -> Void)?
+    
+    var monthInfos = [MonthInfo]()
     
     // MARK: - Views
     private let initalAmtTextField = TextField(placeholder: "Enter your inital investment amount")
@@ -53,6 +56,11 @@ class CalculatorCell: UITableViewCell {
         guard let asset = asset else { return }
         initialAmtLabel.rootView.currency = "(\(asset.company.currency ?? ""))"
         monthlyDollarLabel.rootView.currency = "(\(asset.company.currency ?? ""))"
+        monthInfos = asset.timeSeriesMonthlyAdjusted.getMonthInfos()
+        
+        slider.addTarget(self, action: #selector(handleSlider(sender:)), for: .valueChanged)
+        slider.minimumValue = 0
+        slider.maximumValue = Float(monthInfos.count - 1)
     }
     
     func configureDateButton(title: String) {
@@ -60,9 +68,20 @@ class CalculatorCell: UITableViewCell {
         initalDateButton.setTitleColor(.black, for: .normal)
     }
     
+    func updateSlider(indexValue: Int) {
+        slider.value = Float(indexValue)
+    }
+    
     // MARK: - Selector
     @objc func handleDateButtonTapped() {
         showDateVC?()
+    }
+    
+    @objc func handleSlider(sender: UISlider) {
+        let value =  Int(sender.value)
+        initalDateButton.setTitle(monthInfos[value].date.convertToString(), for: .normal)
+        initalDateButton.setTitleColor(.black, for: .normal)
+        setSliderIndexValue?(value)
     }
 }
 
