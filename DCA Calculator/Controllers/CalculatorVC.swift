@@ -24,6 +24,7 @@ class CalculatorVC: UIViewController {
     
     // MARK: - Properties
     var asset: Asset?
+    var selectedDateIndex: Int?
     
     // MARK: - Init
     init(asset: Asset) {
@@ -80,7 +81,12 @@ extension CalculatorVC: UITableViewDelegate, UITableViewDataSource {
                 cell.configureWith(asset: asset)
                 cell.showDateVC = { [weak self] in
                     guard let self = self else { return }
-                    let vc = DateVC(monthlyTimeSeriesAdjusted: self.asset?.timeSeriesMonthlyAdjusted)
+                    let vc = DateVC(monthlyTimeSeriesAdjusted: self.asset?.timeSeriesMonthlyAdjusted, selectedDateIndex: self.selectedDateIndex)
+                    vc.didSelectDate = { row in
+                        self.selectedDateIndex = row
+                        let monthInfo = self.asset?.timeSeriesMonthlyAdjusted.getMonthInfos()[row]
+                        cell.configureDateButton(title: monthInfo?.date.convertToString() ?? "")
+                    }
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
                 return cell

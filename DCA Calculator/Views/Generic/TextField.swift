@@ -20,5 +20,21 @@ class TextField: UITextField {
         super.init(frame: .zero)
         self.placeholder = placeholder
         self.font = .boldSystemFont(ofSize: 18)
+        self.keyboardType = .numberPad
+        addDoneToolBar()
+    }
+    
+    func addDoneToolBar() {
+        let screenWidth = UIScreen.main.bounds.width
+        let toolBar = UIToolbar(frame: .init(x: 0, y: 0, width: screenWidth, height: 50))
+        toolBar.barStyle = .default
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
+        toolBar.items = [flexSpace, doneButton]
+        inputAccessoryView = toolBar
+    }
+    
+    @objc func dismissKeyboard() {
+        resignFirstResponder()
     }
 }

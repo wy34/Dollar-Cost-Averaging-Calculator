@@ -20,6 +20,7 @@
 		4C72D3B5261E635700542A05 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D3B4261E635700542A05 /* Button.swift */; };
 		4C72D3B8261E662600542A05 /* DateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D3B7261E662600542A05 /* DateVC.swift */; };
 		4C72D3BC261E671D00542A05 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D3BB261E671D00542A05 /* DateCell.swift */; };
+		4C72D3BF261E767300542A05 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D3BE261E767300542A05 /* Date.swift */; };
 		4CEE3857261BBBFF0089AACA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE3856261BBBFF0089AACA /* AppDelegate.swift */; };
 		4CEE3859261BBBFF0089AACA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE3858261BBBFF0089AACA /* SceneDelegate.swift */; };
 		4CEE385B261BBBFF0089AACA /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE385A261BBBFF0089AACA /* SearchVC.swift */; };
@@ -50,6 +51,7 @@
 		4C72D3B4261E635700542A05 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		4C72D3B7261E662600542A05 /* DateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateVC.swift; sourceTree = "<group>"; };
 		4C72D3BB261E671D00542A05 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
+		4C72D3BE261E767300542A05 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		4CEE3853261BBBFF0089AACA /* DCA Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DCA Calculator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CEE3856261BBBFF0089AACA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CEE3858261BBBFF0089AACA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				4CEE386E261BBD130089AACA /* UIView.swift */,
+				4C72D3BE261E767300542A05 /* Date.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				4CEE388B261C05640089AACA /* SearchResult.swift in Sources */,
 				4C72D3A6261E458500542A05 /* CompanyDetailView.swift in Sources */,
 				4C36ED12261D35EB00D2AD18 /* TextField.swift in Sources */,
+				4C72D3BF261E767300542A05 /* Date.swift in Sources */,
 				4CEE387F261BD3C60089AACA /* StackView.swift in Sources */,
 				4C72D3BC261E671D00542A05 /* DateCell.swift in Sources */,
 				4C72D3B8261E662600542A05 /* DateVC.swift in Sources */,

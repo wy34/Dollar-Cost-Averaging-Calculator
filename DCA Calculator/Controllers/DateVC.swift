@@ -10,12 +10,16 @@ import UIKit
 class DateVC: UIViewController {
     // MARK: - Properties
     var monthlyTimeSeriesAdjusted = [MonthInfo]()
-        
+
+    var didSelectDate: ((Int) -> Void)?
+    var selectedDateIndex: Int?
+    
     // MARK: - Init
-    init(monthlyTimeSeriesAdjusted: TimeSeriesMonthlyAjusted?) {
+    init(monthlyTimeSeriesAdjusted: TimeSeriesMonthlyAjusted?, selectedDateIndex: Int?) {
         super.init(nibName: nil, bundle: nil)
         guard let monthlyTimeSeriesAdjusted = monthlyTimeSeriesAdjusted else { return }
         self.monthlyTimeSeriesAdjusted = monthlyTimeSeriesAdjusted.getMonthInfos()
+        self.selectedDateIndex = selectedDateIndex
     }
     
     required init?(coder: NSCoder) {
@@ -45,6 +49,11 @@ class DateVC: UIViewController {
         view.addSubview(tableView)
         tableView.anchor(top: view.topAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor)
     }
+    
+    func setupSelectedDate(cell: UITableViewCell, indexPath: IndexPath) {
+        guard let selectedDateIndex = selectedDateIndex else { return }
+        cell.accessoryType = indexPath.row == selectedDateIndex ? .checkmark : .none
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -55,11 +64,14 @@ extension DateVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DateCell.reuseId, for: indexPath) as! DateCell
-        cell.accessoryType = .checkmark
+        setupSelectedDate(cell: cell, indexPath: indexPath)
+        cell.configureWith(monthInfo: monthlyTimeSeriesAdjusted[indexPath.row], index: indexPath.row)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        didSelectDate?(indexPath.row)
+        navigationController?.popViewController(animated: true)
     }
 }

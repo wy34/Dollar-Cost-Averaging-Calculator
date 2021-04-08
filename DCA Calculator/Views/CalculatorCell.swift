@@ -25,7 +25,7 @@ class CalculatorCell: UITableViewCell {
 
     private let initalDateButton = Button(title:  "Set your inital date of investment", bgColor: .clear, font: .boldSystemFont(ofSize: 18))
     private let initialDateLabel = UIHostingController(rootView: TextFieldCaptionLabel(caption: "Initial date of investment", currency: ""))
-    private lazy var dateStack = StackView(views: [initalDateButton, initialDateLabel.view], spacing: -3, axis: .vertical,alignment: .leading)
+    private lazy var dateStack = StackView(views: [initalDateButton, initialDateLabel.view], spacing: -5, axis: .vertical,alignment: .leading)
     
     private let slider = Slider(minVal: 0, maxVal: 1)
     
@@ -53,6 +53,11 @@ class CalculatorCell: UITableViewCell {
         guard let asset = asset else { return }
         initialAmtLabel.rootView.currency = "(\(asset.company.currency ?? ""))"
         monthlyDollarLabel.rootView.currency = "(\(asset.company.currency ?? ""))"
+    }
+    
+    func configureDateButton(title: String) {
+        initalDateButton.setTitle(title, for: .normal)
+        initalDateButton.setTitleColor(.black, for: .normal)
     }
     
     // MARK: - Selector
