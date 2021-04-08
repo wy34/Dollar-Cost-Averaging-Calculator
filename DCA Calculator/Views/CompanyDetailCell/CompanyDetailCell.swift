@@ -8,6 +8,7 @@
 import UIKit
 import SwiftUI
 
+
 class CompanyDetailCell: UITableViewCell {
     // MARK: - Properties
     static let reuseId = "CompanyDetailCell"

@@ -15,12 +15,14 @@
 		4C36ED15261D381D00D2AD18 /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C36ED14261D381D00D2AD18 /* Slider.swift */; };
 		4C36ED18261D4F9B00D2AD18 /* TimeSeriesMonthlyAjusted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C36ED17261D4F9B00D2AD18 /* TimeSeriesMonthlyAjusted.swift */; };
 		4C36ED1F261D687100D2AD18 /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C36ED1E261D687100D2AD18 /* Asset.swift */; };
+		4C5FA905261F772400089397 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5FA904261F772400089397 /* Double.swift */; };
 		4C72D3A6261E458500542A05 /* CompanyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D3A5261E458500542A05 /* CompanyDetailView.swift */; };
 		4C72D3B1261E58BF00542A05 /* TextFieldCaptionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D3B0261E58BF00542A05 /* TextFieldCaptionLabel.swift */; };
 		4C72D3B5261E635700542A05 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D3B4261E635700542A05 /* Button.swift */; };
 		4C72D3B8261E662600542A05 /* DateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D3B7261E662600542A05 /* DateVC.swift */; };
 		4C72D3BC261E671D00542A05 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D3BB261E671D00542A05 /* DateCell.swift */; };
 		4C72D3BF261E767300542A05 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D3BE261E767300542A05 /* Date.swift */; };
+		4C72D3C2261EB36100542A05 /* DCAService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D3C1261EB36100542A05 /* DCAService.swift */; };
 		4CEE3857261BBBFF0089AACA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE3856261BBBFF0089AACA /* AppDelegate.swift */; };
 		4CEE3859261BBBFF0089AACA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE3858261BBBFF0089AACA /* SceneDelegate.swift */; };
 		4CEE385B261BBBFF0089AACA /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE385A261BBBFF0089AACA /* SearchVC.swift */; };
@@ -46,12 +48,14 @@
 		4C36ED14261D381D00D2AD18 /* Slider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
 		4C36ED17261D4F9B00D2AD18 /* TimeSeriesMonthlyAjusted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSeriesMonthlyAjusted.swift; sourceTree = "<group>"; };
 		4C36ED1E261D687100D2AD18 /* Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
+		4C5FA904261F772400089397 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		4C72D3A5261E458500542A05 /* CompanyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDetailView.swift; sourceTree = "<group>"; };
 		4C72D3B0261E58BF00542A05 /* TextFieldCaptionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCaptionLabel.swift; sourceTree = "<group>"; };
 		4C72D3B4261E635700542A05 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		4C72D3B7261E662600542A05 /* DateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateVC.swift; sourceTree = "<group>"; };
 		4C72D3BB261E671D00542A05 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		4C72D3BE261E767300542A05 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		4C72D3C1261EB36100542A05 /* DCAService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCAService.swift; sourceTree = "<group>"; };
 		4CEE3853261BBBFF0089AACA /* DCA Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DCA Calculator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CEE3856261BBBFF0089AACA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CEE3858261BBBFF0089AACA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -139,6 +143,7 @@
 			children = (
 				4CEE386E261BBD130089AACA /* UIView.swift */,
 				4C72D3BE261E767300542A05 /* Date.swift */,
+				4C5FA904261F772400089397 /* Double.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -175,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				4CEE3885261BD8060089AACA /* APIService.swift */,
+				4C72D3C1261EB36100542A05 /* DCAService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -259,12 +265,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C72D3C2261EB36100542A05 /* DCAService.swift in Sources */,
 				4C72D3B1261E58BF00542A05 /* TextFieldCaptionLabel.swift in Sources */,
 				4C36ED09261D05B500D2AD18 /* CompanyDetailCell.swift in Sources */,
 				4CEE3876261BD2FD0089AACA /* CompanySearchCell.swift in Sources */,
 				4CEE388B261C05640089AACA /* SearchResult.swift in Sources */,
 				4C72D3A6261E458500542A05 /* CompanyDetailView.swift in Sources */,
 				4C36ED12261D35EB00D2AD18 /* TextField.swift in Sources */,
+				4C5FA905261F772400089397 /* Double.swift in Sources */,
 				4C72D3BF261E767300542A05 /* Date.swift in Sources */,
 				4CEE387F261BD3C60089AACA /* StackView.swift in Sources */,
 				4C72D3BC261E671D00542A05 /* DateCell.swift in Sources */,

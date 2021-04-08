@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftUI
+import Combine
 
 class CalculatorCell: UITableViewCell {
     // MARK: - Properties
@@ -16,6 +17,16 @@ class CalculatorCell: UITableViewCell {
     var setSliderIndexValue: ((Int) -> Void)?
     
     var monthInfos = [MonthInfo]()
+    
+    var subscriber = Set<AnyCancellable>()
+    
+    @Published private var sliderValue: Int?
+    @Published private var initalInvestmentAmt: Int?
+    @Published private var monthlyDollarAmount: Int?
+    
+    let dcaService = DCAService()
+    
+    static let calculateNotification = Notification.Name("calculateNotification")
     
     // MARK: - Views
     private let initalAmtTextField = TextField(placeholder: "Enter your inital investment amount")
@@ -38,6 +49,19 @@ class CalculatorCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layoutUI()
+        setupSubscribers()
+        
+
+        Publishers.CombineLatest3($initalInvestmentAmt, $monthlyDollarAmount, $sliderValue)
+            .sink { [weak self] (initalInvestmentAmt, monthlyDollarAmount, sliderValue) in
+                guard let self = self else { return }
+                guard let initalInvestmentAmt = initalInvestmentAmt, let monthlyDollarAmount = monthlyDollarAmount, let sliderValue = sliderValue else { return }
+                
+                let result = self.dcaService.calculate(initialInvestmentAmount: Double(initalInvestmentAmt), monthlyDollarCostAveraginAmount: Double(monthlyDollarAmount), initialDateOfInvestmentIndex: sliderValue)
+                
+                NotificationCenter.default.post(name: CalculatorCell.calculateNotification, object: nil, userInfo: ["result": result])
+            }
+            .store(in: &subscriber)
     }
     
     required init?(coder: NSCoder) {
@@ -70,6 +94,32 @@ class CalculatorCell: UITableViewCell {
     
     func updateSlider(indexValue: Int) {
         slider.value = Float(indexValue)
+        self.sliderValue = indexValue
+    }
+    
+    func setupSubscribers() {
+        $sliderValue
+            .sink { [weak self] (sliderValue) in
+                guard let self = self else { return }
+                self.setSliderIndexValue?(sliderValue ?? 0)
+            }
+            .store(in: &subscriber)
+
+        NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: initalAmtTextField)
+            .compactMap({ ($0.object as? UITextField)?.text })
+            .sink { [weak self] (text) in
+                guard let self = self else { return }
+                self.initalInvestmentAmt = Int(text) ?? 0
+            }
+            .store(in: &subscriber)
+
+        NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: monthlyDollarTextField)
+            .compactMap({ ($0.object as? UITextField)?.text })
+            .sink { [weak self] (text) in
+                guard let self = self else { return }
+                self.monthlyDollarAmount = Int(text) ?? 0
+            }
+            .store(in: &subscriber)
     }
     
     // MARK: - Selector
@@ -81,7 +131,7 @@ class CalculatorCell: UITableViewCell {
         let value =  Int(sender.value)
         initalDateButton.setTitle(monthInfos[value].date.convertToString(), for: .normal)
         initalDateButton.setTitleColor(.black, for: .normal)
-        setSliderIndexValue?(value)
+        self.sliderValue = value
     }
 }
 

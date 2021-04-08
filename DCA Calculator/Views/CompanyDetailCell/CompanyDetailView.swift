@@ -10,6 +10,8 @@ import SwiftUI
 struct CompanyDetailView: View {
     // MARK: - Properties
     var asset: Asset?
+    @State private var dcaResult: DCAResult?
+    let calculatorNotification = NotificationCenter.default.publisher(for: CalculatorCell.calculateNotification)
     
     // MARK: - Body
     var body: some View {
@@ -27,14 +29,14 @@ struct CompanyDetailView: View {
                     Text("(\(asset?.company.currency ?? ""))")
                 }
                     .font(.system(size: 16, weight: .medium, design: .rounded))
-                Text("5000")
+                Text("\(dcaResult?.currentValue.toTwoPlaces() ?? 0.0.toTwoPlaces())")
                     .font(.system(size: 20, weight: .bold, design: .rounded))
             }
             HStack {
                 Text("Investment amount")
                     .font(.system(size: 14, weight: .regular, design: .rounded))
                 Spacer()
-                Text("\(asset?.company.currency ?? "") 100")
+                Text("\(asset?.company.currency ?? "") \(dcaResult?.investmentAmount.toTwoPlaces() ?? 0.0.toTwoPlaces())")
                     .font(.system(size: 14, weight: .bold, design: .rounded))
             }
             HStack {
@@ -57,6 +59,13 @@ struct CompanyDetailView: View {
                     .font(.system(size: 14, weight: .bold, design: .rounded))
             }
         }
+            .onReceive(calculatorNotification) { (output) in
+                if let userInfo = output.userInfo {
+                    if let dcaResult = userInfo["result"] as? DCAResult {
+                        self.dcaResult = dcaResult
+                    }
+                }
+            }
     }
 }
 
