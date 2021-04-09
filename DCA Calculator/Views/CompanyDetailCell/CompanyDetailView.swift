@@ -17,9 +17,9 @@ struct CompanyDetailView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
-                Text(asset?.company.name ?? "")
+                Text(asset?.company.symbol ?? "")
                     .font(.system(size: 24, weight: .bold, design: .rounded))
-                Text(asset?.company.type ?? "")
+                Text(asset?.company.name ?? "")
                     .foregroundColor(.gray)
                     .font(.system(size: 16, weight: .medium, design: .rounded))
             }

@@ -31,7 +31,7 @@ class SearchVC: LoadingViewController {
     
     private lazy var searchController: UISearchController = {
         let sc = UISearchController(searchResultsController: nil)
-        sc.searchResultsUpdater = self
+        sc.searchBar.delegate = self
         sc.obscuresBackgroundDuringPresentation = false
         sc.searchBar.placeholder = "Enter a company name or symbol"
         sc.searchBar.autocapitalizationType = .allCharacters
@@ -123,6 +123,11 @@ class SearchVC: LoadingViewController {
             .store(in: &subscribers)
     }
 
+    func resetSearch() {
+        companies.removeAll()
+        tableView.reloadData()
+        isSearching = false
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDatasource
@@ -145,19 +150,21 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
 }
 
 // MARK: - UISearchResultsUpdater
-extension SearchVC: UISearchResultsUpdating, UISearchControllerDelegate {
-    func updateSearchResults(for searchController: UISearchController) {
-        guard !searchController.searchBar.text!.isEmpty else {
-            companies.removeAll()
-            tableView.reloadData()
-            isSearching = false
+extension SearchVC: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard !searchBar.text!.isEmpty else {
+            resetSearch()
             print("removin")
             return
         }
-        
+
         isSearching = true
         showLoader()
-        searchQuery = searchController.searchBar.text!
+        searchQuery = searchBar.text!
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        resetSearch()
     }
 }
 

@@ -52,6 +52,7 @@ class CalculatorVC: UIViewController {
     
     func configureNavBar() {
         navigationItem.largeTitleDisplayMode = .never
+        navigationItem.title = asset?.company.symbol
     }
     
     func setSliderIndexValue(sliderIndex: Int) {

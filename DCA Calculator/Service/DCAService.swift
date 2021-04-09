@@ -8,6 +8,10 @@
 import Foundation
 
 struct DCAService {
+    func performSubtraction(num1: Int, num2: Int) -> Int {
+        return num1 - num2
+    }
+    
     func calculate(asset: Asset, initialInvestmentAmount: Double, monthlyDollarCostAveraginAmount: Double, initialDateOfInvestmentIndex: Int) -> DCAResult {
         let investmentAmount = getInvestmentAmount(initialInvestmentAmount: initialInvestmentAmount, monthlyDollarCostAveraginAmount: monthlyDollarCostAveraginAmount, initialDateOfInvestmentIndex: initialDateOfInvestmentIndex)
         
@@ -26,7 +30,7 @@ struct DCAService {
     
     private func getAnnualReturn(currentValue: Double, investmentAmount: Double, initialDateOfInvestmentIndex: Int) -> Double {
         let rate = currentValue / investmentAmount
-        let years = Double((initialDateOfInvestmentIndex + 1) / 12)
+        let years = (Double(initialDateOfInvestmentIndex) + 1) / 12
         return pow(rate, 1/years) - 1
     }
     
@@ -54,7 +58,7 @@ struct DCAService {
         return (numberOfShares * latestSharePrice)
     }
     
-    private func getInvestmentAmount(initialInvestmentAmount: Double, monthlyDollarCostAveraginAmount: Double, initialDateOfInvestmentIndex: Int) -> Double {
+    func getInvestmentAmount(initialInvestmentAmount: Double, monthlyDollarCostAveraginAmount: Double, initialDateOfInvestmentIndex: Int) -> Double {
         var totalAmount = Double()
         totalAmount += initialInvestmentAmount
         let dollarCostAveragings = Double(initialDateOfInvestmentIndex) * monthlyDollarCostAveraginAmount
